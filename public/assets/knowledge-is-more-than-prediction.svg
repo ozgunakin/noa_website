@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1020" viewBox="0 0 760 1020" role="img" aria-labelledby="title desc">
+<title id="title">Knowledge is more than prediction</title>
+<desc id="desc">Observation, Hypothesis, Prediction, Experiment, Evidence, Reproduction, Knowledge. A simplified journey with verification and human judgment throughout.</desc>
+<defs><linearGradient id="progress" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b9c0d5"/><stop offset=".5" stop-color="#f8f8f6"/><stop offset="1" stop-color="#f8f8f6"/></linearGradient></defs>
+<rect width="760" height="1020" rx="14" fill="#040A30"/>
+<g font-family="Inter, Arial, sans-serif">
+<text x="48" y="58" fill="#f8f8f6" font-size="17" letter-spacing="4">NOA / FIELD NOTES</text>
+<text x="48" y="119" fill="#f8f8f6" font-size="36" font-weight="600" letter-spacing="-1">From possibility to knowledge.</text>
+<path d="M48 156H712" stroke="#f8f8f6" stroke-opacity=".18"/>
+<path d="M86 220V820" stroke="url(#progress)" stroke-width="2"/>
+
+<circle cx="86" cy="218" r="6" fill="#040A30" stroke="#b9c0d5" stroke-width="2"/>
+<path d="M81 276l5 6 5-6" fill="none" stroke="#b9c0d5" stroke-width="1.5"/>
+<text x="126" y="226" fill="#b9c0d5" font-size="30" font-weight="500">Observation</text><text x="126" y="256" fill="#b9c0d5" font-size="19">Notice a pattern.</text>
+<circle cx="86" cy="318" r="6" fill="#040A30" stroke="#b9c0d5" stroke-width="2"/>
+<path d="M81 376l5 6 5-6" fill="none" stroke="#b9c0d5" stroke-width="1.5"/>
+<text x="126" y="326" fill="#b9c0d5" font-size="30" font-weight="500">Hypothesis</text><text x="126" y="356" fill="#b9c0d5" font-size="19">Propose an explanation.</text>
+<circle cx="86" cy="418" r="6" fill="#040A30" stroke="#b9c0d5" stroke-width="2"/>
+<path d="M81 476l5 6 5-6" fill="none" stroke="#b9c0d5" stroke-width="1.5"/>
+<text x="126" y="426" fill="#b9c0d5" font-size="30" font-weight="500">Prediction</text><text x="126" y="456" fill="#b9c0d5" font-size="19">Make it testable.</text>
+<circle cx="86" cy="518" r="6" fill="#040A30" stroke="#f8f8f6" stroke-width="2"/>
+<path d="M81 576l5 6 5-6" fill="none" stroke="#f8f8f6" stroke-width="1.5"/>
+<text x="126" y="526" fill="#f8f8f6" font-size="30" font-weight="500">Experiment</text><text x="126" y="556" fill="#b9c0d5" font-size="19">Ask reality.</text>
+<circle cx="86" cy="618" r="6" fill="#040A30" stroke="#f8f8f6" stroke-width="2"/>
+<path d="M81 676l5 6 5-6" fill="none" stroke="#f8f8f6" stroke-width="1.5"/>
+<text x="126" y="626" fill="#f8f8f6" font-size="30" font-weight="500">Evidence</text><text x="126" y="656" fill="#b9c0d5" font-size="19">Examine what happened.</text>
+<circle cx="86" cy="718" r="6" fill="#040A30" stroke="#f8f8f6" stroke-width="2"/>
+<path d="M81 776l5 6 5-6" fill="none" stroke="#f8f8f6" stroke-width="1.5"/>
+<text x="126" y="726" fill="#f8f8f6" font-size="30" font-weight="500">Reproduction</text><text x="126" y="756" fill="#b9c0d5" font-size="19">Test whether it holds.</text>
+<circle cx="86" cy="818" r="10" fill="#040A30" stroke="#f8f8f6" stroke-width="2"/>
+<text x="126" y="826" fill="#f8f8f6" font-size="30" font-weight="500">Knowledge</text><text x="126" y="856" fill="#b9c0d5" font-size="19">Earn provisional trust.</text>
+<path d="M48 885H712" stroke="#f8f8f6" stroke-opacity=".18"/>
+<text x="48" y="927" fill="#f8f8f6" font-size="22">AI accelerates. Verification earns trust.</text>
+<text x="48" y="966" fill="#b9c0d5" font-size="18">Human judgment matters throughout.</text>
+</g></svg>

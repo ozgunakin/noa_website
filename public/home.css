@@ -1,0 +1,79 @@
+/* Homepage composition. Atmosphere and diagram remain sharp at every pixel density. */
+.home-page{background:#fff}
+.human-machine-hero{position:relative;isolation:isolate;min-height:0;overflow:hidden;color:#f6f8fc;background:radial-gradient(ellipse at 62% 42%,#253955 0%,#0a1932 40%,#030c20 75%)}
+/* A resolution-independent illuminated sphere, cropped like the approved reference. */
+.human-machine-hero::before{content:"";position:absolute;z-index:-1;pointer-events:none;width:75%;aspect-ratio:1;left:-8%;top:50%;transform:translateY(-36%);border-radius:50%;background:radial-gradient(ellipse at 30% 43%,#020b1f 20%,#06132c 55%,#172942 77%,#71869f 94%,#e0edfc 100%);box-shadow:inset -5px 0 5px #eff7ff,inset -18px 0 24px #b2c5df,inset -46px 0 70px #526987,8px 0 30px #a8c9ef50,40px 0 90px #7e9cc633}
+.human-machine-hero::after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;background:linear-gradient(90deg,#020c2055,transparent 60%)}
+.home-header{display:flex;position:relative;align-items:center;justify-content:space-between;gap:24px;padding-block:24px;border:0;color:inherit}
+.home-header .brand-logo{height:28px;width:auto}
+.home-nav{gap:34px;font-size:.8rem}
+.home-nav a{padding-block:10px}
+.home-nav a:last-child{border:1px solid #ffffff90;border-radius:100px;padding:9px 22px}
+.hero-center{position:relative;display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);align-items:center;justify-items:stretch;gap:40px;min-height:clamp(400px,36vw,560px);padding-block:58px 60px}
+.hero-message{width:auto;padding:0;background:none;min-width:0}
+.hero-message h1{color:#f6f8fc;font-size:clamp(3.5rem,6.8vw,6.25rem);font-weight:650;letter-spacing:-.065em;line-height:.98;margin:0}
+.hero-message p{margin-top:28px;font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.5;color:#e0e4ef}
+.hero-journal-link{display:inline-flex;align-items:center;gap:24px;border-bottom:1px solid #ffffffc0;padding-block:8px;margin-top:30px;font-size:.85rem}
+.hero-journal-link span{font-size:1rem;transition:transform .2s}
+.hero-journal-link:hover span{transform:translate(3px,-3px)}
+.hero-system{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;padding-block:16px;text-transform:uppercase;font-size:.68rem;letter-spacing:.22em;color:#f2f4fa}
+.hero-system i{display:block;height:55px;width:1px;background:linear-gradient(#e1e9f9a0,#e1e9f970)}
+.hero-system .system-name{font-size:1.05rem;letter-spacing:.15em}
+.human-machine-hero .journal-transition{position:relative;display:flex;margin-block:0;padding-block:16px 25px;color:#eef2fa;gap:28px}
+.human-machine-hero .journal-transition::before,.human-machine-hero .journal-transition::after{border-color:#ffffff90}
+.human-machine-hero .journal-transition h2{font-size:.62rem;letter-spacing:.3em}
+
+.journal-transition{margin-bottom:36px;gap:22px}
+.journal-transition::before,.journal-transition::after{border-color:#040a3026}
+.journal-transition h2{font-size:.65rem;letter-spacing:.2em;line-height:1.5}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:800px){.hero-center{min-height:390px;padding-block:48px;gap:20px}.hero-message h1{font-size:clamp(2.8rem,6vw,4rem)}.hero-system{font-size:.56rem;letter-spacing:.15em}.hero-system i{height:42px}}
+.home-mobile-menu{display:none}
+@media(max-width:600px){
+  .home-header{flex-wrap:nowrap;gap:16px;padding-block:18px;z-index:5}
+  .home-header .brand-logo{height:23px}
+  .home-header>.home-nav{display:none}
+  .home-mobile-menu{display:block;position:relative}
+  .home-mobile-menu summary{display:flex;align-items:center;gap:14px;min-height:44px;padding:8px 14px;border:1px solid #ffffff70;border-radius:24px;cursor:pointer;list-style:none;font-size:.8rem}
+  .home-mobile-menu summary::-webkit-details-marker{display:none}
+  .home-mobile-menu summary span{font-size:1rem}
+  .home-mobile-menu nav{position:absolute;right:0;top:calc(100% + 10px);width:190px;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:8px;background:#0b1830;border:1px solid #ffffff40;border-radius:12px;box-shadow:0 16px 36px #0005}
+  .home-mobile-menu nav a{display:block;min-height:44px;padding:10px 14px;font-size:.875rem;white-space:nowrap}
+  .hero-center{grid-template-columns:minmax(0,1fr) 66px;align-items:center;gap:16px;min-height:340px;padding-block:38px 42px}
+  .hero-message h1{font-size:clamp(1.65rem,8.4vw,3.15rem);line-height:1.03;letter-spacing:-.06em}
+  .hero-message p{margin-top:22px;font-size:clamp(.8rem,2.8vw,.95rem);line-height:1.65;max-width:28ch}
+  .hero-journal-link{margin-top:24px;font-size:.75rem;gap:16px;min-height:44px}
+  .hero-system{flex-direction:column;gap:11px;font-size:.49rem;letter-spacing:.1em;padding-block:0;white-space:nowrap}
+  .hero-system i{height:34px;width:1px;flex:none}
+  .hero-system .system-name{font-size:.85rem}
+  /* Keep a true circle tied to the viewport, independent of text height. */
+  .human-machine-hero::before{width:max(660px,150vw);left:auto;right:26%;top:80px;transform:translateY(-22%);box-shadow:inset -3px 0 4px #eff7ff,inset -12px 0 22px #b2c5df,inset -34px 0 60px #526987,6px 0 24px #a8c9ef40,24px 0 70px #7e9cc622}
+  .human-machine-hero::after{background:linear-gradient(180deg,#030c2070,transparent 30%),linear-gradient(90deg,#020c2066,transparent 72%)}
+  .human-machine-hero .journal-transition{gap:12px;padding-block:10px 22px}
+  .human-machine-hero .journal-transition h2{font-size:.5rem;letter-spacing:.12em}
+
+
+
+
+
+}
+
+/* Space below the hero; Journal typography and proportions come from styles.css. */
+.home-latest{padding-top:48px}
+@media(max-width:700px){.home-latest{padding-top:32px}}

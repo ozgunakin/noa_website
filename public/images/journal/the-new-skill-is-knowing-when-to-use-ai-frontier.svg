@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760">
+<rect width="1400" height="760" rx="28" fill="#F7F7F4"/>
+<text x="700" y="85" fill="#040A30" font-family="Georgia,serif" font-size="42" text-anchor="middle">The Jagged Technological Frontier</text>
+<text x="700" y="130" fill="#040A30" opacity=".7" font-family="Arial,sans-serif" font-size="21" text-anchor="middle">AI can be brilliant at one task — and surprisingly weak at the next.</text>
+<text x="245" y="215" fill="#040A30" font-family="Arial,sans-serif" font-size="22" letter-spacing="3">AI HELPS</text>
+<text x="1070" y="215" fill="#040A30" font-family="Arial,sans-serif" font-size="22" letter-spacing="3">AI MAY HURT</text>
+<path d="M700 175 C570 235 815 285 670 345 C555 395 830 450 685 505 C590 555 810 610 700 670" fill="none" stroke="#040A30" stroke-width="5"/>
+<g font-family="Arial,sans-serif" font-size="19" text-anchor="middle">
+<g fill="#040A30"><circle cx="300" cy="310" r="60"/><circle cx="460" cy="480" r="60"/><circle cx="320" cy="605" r="60"/></g>
+<g fill="#F7F7F4"><text x="300" y="316">TASK A</text><text x="460" y="486">TASK B</text><text x="320" y="611">TASK C</text></g>
+<g fill="#F7F7F4" stroke="#040A30" stroke-width="3"><circle cx="1040" cy="320" r="60"/><circle cx="910" cy="500" r="60"/><circle cx="1110" cy="610" r="60"/></g>
+<g fill="#040A30"><text x="1040" y="326">TASK D</text><text x="910" y="506">TASK E</text><text x="1110" y="616">TASK F</text></g>
+</g>
+<rect x="505" y="680" width="390" height="55" rx="28" fill="#040A30"/>
+<text x="700" y="715" fill="#F7F7F4" font-family="Arial,sans-serif" font-size="20" text-anchor="middle">THE HUMAN SKILL: JUDGEMENT</text>
+</svg>
