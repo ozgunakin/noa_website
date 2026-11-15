@@ -7,13 +7,21 @@ import matter from 'gray-matter';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const CONTENT_DIR = path.join(ROOT, 'content/blog');
 const OUTPUT_DIR = path.join(ROOT, 'public/blog');
+// Turkish editions live in content/blog/tr and share their English post's slug.
+const TR_CONTENT_DIR = path.join(CONTENT_DIR, 'tr');
+const TR_OUTPUT_DIR = path.join(ROOT, 'public/tr/blog');
+const SITE_URL = 'https://notonlyartificial.com';
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const slugify = (s) => String(s).toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-const formatDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+const formatDate = (d, lang = 'en') => new Date(`${d}T00:00:00Z`).toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 const formatHomeDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric', timeZone: 'UTC' });
 
-const page = ({ title, description, body }) => `<!doctype html>
-<html lang="en">
+// alternates: [{ lang, path }] for hreflang links between language editions.
+const alternateLinks = (alternates = []) => alternates
+  .map(a => `\n  <link rel="alternate" hreflang="${a.lang}" href="${SITE_URL}${a.path}">`).join('');
+
+const page = ({ title, description, body, lang = 'en', alternates }) => `<!doctype html>
+<html lang="${lang}">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ELDNRLBN6"></script>
@@ -27,7 +35,7 @@ const page = ({ title, description, body }) => `<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#040a30">
   <meta name="description" content="${escapeHtml(description)}">
-  <title>${escapeHtml(title)}</title>
+  <title>${escapeHtml(title)}</title>${alternateLinks(alternates)}
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -48,7 +56,7 @@ ${body}
 </html>
 `;
 
-const meta = (p) => `<span class="blog-meta"><span>${escapeHtml(p.category)}</span><time datetime="${escapeHtml(p.date)}">${formatDate(p.date)}</time><span>${p.readingMinutes} min read</span></span>`;
+const meta = (p) => `<span class="blog-meta"><span>${escapeHtml(p.category)}</span><time datetime="${escapeHtml(p.date)}">${formatDate(p.date, p.lang)}</time><span>${p.readingMinutes} ${p.lang === 'tr' ? 'dk okuma' : 'min read'}</span></span>`;
 
 const collaborationNote = `<aside class="collaboration-note"><h2>Human judgment. AI research. Shared work.</h2><p>These essays are created through human–AI collaboration. AI helps us find sources, explore connections, and synthesize research. We bring context, critical judgment, and editorial direction—and take responsibility for what we publish.</p></aside>`;
 
@@ -71,25 +79,27 @@ const homeFeatured = (p) => `<a class="home-featured" href="/blog/${p.slug}/"><i
 
 const homePostRow = (p) => `<a class="home-post-row" href="/blog/${p.slug}/"><img class="home-post-image" src="${escapeHtml(p.image)}"${homeImage(p)} alt="" width="1200" height="800" loading="lazy" decoding="async"><span class="home-post-copy"><span class="home-post-category">${escapeHtml(p.category)}</span><strong>${escapeHtml(p.title)}</strong><span class="home-post-excerpt">${escapeHtml(p.excerpt)}</span><span class="home-post-meta">${formatHomeDate(p.date)} · ${p.readingMinutes} min read</span></span></a>`;
 
+const postPath = (p) => `${p.lang === 'tr' ? '/tr' : ''}/blog/${p.slug}/`;
+
 const postCard = (p, heading = 'h2') => `
     <article class="blog-card">
-      <a href="/blog/${p.slug}/">
+      <a href="${postPath(p)}">
         <img class="blog-image" src="${escapeHtml(p.image)}" alt="" width="1200" height="800" loading="lazy" decoding="async">
         <div class="card-copy">
           ${meta(p)}
           <${heading}>${escapeHtml(p.title)}</${heading}>
           <p>${escapeHtml(p.excerpt)}</p>
-          <span class="blog-read">Read the essay <span aria-hidden="true">↗</span></span>
+          <span class="blog-read">${p.lang === 'tr' ? 'Yazıyı oku' : 'Read the essay'} <span aria-hidden="true">↗</span></span>
         </div>
       </a>
     </article>`;
 
-function loadPosts() {
-  if (!existsSync(CONTENT_DIR)) return [];
-  return readdirSync(CONTENT_DIR)
+function loadPosts(dir = CONTENT_DIR, lang = 'en') {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
     .filter((f) => f.endsWith('.md'))
     .map((filename) => {
-      const { data, content } = matter(readFileSync(path.join(CONTENT_DIR, filename), 'utf8'));
+      const { data, content } = matter(readFileSync(path.join(dir, filename), 'utf8'));
       const body = content.replace(/^\s*#[^\n]*\n+/, '');
       const text = body.replace(/[#*_`>[\]!-]/g, ' ').replace(/\s+/g, ' ').trim();
       // Covers are local editorial assets; reject remote or traversal paths.
@@ -108,6 +118,7 @@ function loadPosts() {
         featured: data.featured === true,
         readingMinutes: Math.max(1, Math.ceil(text.split(/\s+/).length / 220)),
         draft: !!data.draft,
+        lang,
         html: marked.parse(body),
       };
     })
@@ -124,30 +135,61 @@ function replaceRegion(html, name, body) {
   return html.slice(0, startIdx + start.length) + '\n' + body + '\n    ' + html.slice(endIdx);
 }
 
+// Link to the same essay in the other language, when that edition exists.
+const langSwitch = (other) => other
+  ? `<a class="text-link lang-switch" href="${postPath(other)}" hreflang="${other.lang}" lang="${other.lang}">${other.lang === 'tr' ? 'Türkçe oku' : 'Read in English'} <span aria-hidden="true">→</span></a>`
+  : '';
+
+function writePost(p, other, outDir) {
+  const tr = p.lang === 'tr';
+  const listPath = tr ? '/tr/blog/' : '/blog/';
+  const dir = path.join(outDir, p.slug);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(path.join(dir, 'index.html'), page({
+    title: `${p.title} — Not Only Artificial`, description: p.excerpt, lang: p.lang,
+    alternates: other ? [{ lang: p.lang, path: postPath(p) }, { lang: other.lang, path: postPath(other) }] : undefined,
+    body: `<main id="main" class="reading-surface"><div class="wrap"><article class="post">
+  <header class="post-header"><div class="post-nav"><a class="text-link" href="${listPath}">${tr ? '← Yazılar' : '← The journal'}</a>${langSwitch(other)}</div>${meta(p)}<h1>${escapeHtml(p.title)}</h1><p class="post-deck">${escapeHtml(p.excerpt)}</p><img class="post-cover" src="${escapeHtml(p.image)}" alt="" width="1200" height="800"></header>
+  <div class="post-content">${p.html}</div>
+  <a class="button secondary back-link" href="${listPath}">${tr ? '← Tüm yazılar' : '← All articles'}</a>
+</article></div></main>`,
+  }));
+}
+
 function build() {
   const posts = loadPosts();
+  const trPosts = loadPosts(TR_CONTENT_DIR, 'tr');
+  const enBySlug = new Map(posts.map(p => [p.slug, p]));
+  const trBySlug = new Map(trPosts.map(p => [p.slug, p]));
   rmSync(OUTPUT_DIR, { recursive: true, force: true });
   mkdirSync(OUTPUT_DIR, { recursive: true });
+  const trListLink = trPosts.length ? `<p><a class="text-link" href="/tr/blog/" hreflang="tr" lang="tr">Türkçe yazılar <span aria-hidden="true">→</span></a></p>` : '';
   writeFileSync(path.join(OUTPUT_DIR, 'index.html'), page({
     title: 'Journal — Not Only Artificial',
     description: 'Independent thinking on AI, human judgment, and what comes next.',
+    alternates: trPosts.length ? [{ lang: 'en', path: '/blog/' }, { lang: 'tr', path: '/tr/blog/' }] : undefined,
     body: `<main id="main" class="reading-surface"><div class="wrap">
-  <section class="blog-hero"><p class="eyebrow">The journal</p><h1>Towards better use of AI.</h1><p>Ideas on people, technology, and a more thoughtful future.</p></section>
+  <section class="blog-hero"><p class="eyebrow">The journal</p><h1>Towards better use of AI.</h1><p>Ideas on people, technology, and a more thoughtful future.</p>${trListLink}</section>
   ${collaborationNote}
   <section class="blog-list" aria-label="All articles">${posts.length ? posts.map(p => postCard(p)).join('\n') : '<p class="blog-empty">No posts yet — check back soon.</p>'}</section>
 </div></main>`,
   }));
-  for (const p of posts) {
-    const dir = path.join(OUTPUT_DIR, p.slug);
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(path.join(dir, 'index.html'), page({
-      title: `${p.title} — Not Only Artificial`, description: p.excerpt,
-      body: `<main id="main" class="reading-surface"><div class="wrap"><article class="post">
-  <header class="post-header"><a class="text-link" href="/blog/">← The journal</a>${meta(p)}<h1>${escapeHtml(p.title)}</h1><p class="post-deck">${escapeHtml(p.excerpt)}</p><img class="post-cover" src="${escapeHtml(p.image)}" alt="" width="1200" height="800"></header>
-  <div class="post-content">${p.html}</div>
-  <a class="button secondary back-link" href="/blog/">← All articles</a>
-</article></div></main>`,
+  for (const p of posts) writePost(p, trBySlug.get(p.slug), OUTPUT_DIR);
+
+  rmSync(TR_OUTPUT_DIR, { recursive: true, force: true });
+  if (trPosts.length) {
+    mkdirSync(TR_OUTPUT_DIR, { recursive: true });
+    writeFileSync(path.join(TR_OUTPUT_DIR, 'index.html'), page({
+      title: 'Yazılar — Not Only Artificial',
+      description: 'Yapay zekâ, insan muhakemesi ve sonrası üzerine bağımsız düşünceler.',
+      lang: 'tr',
+      alternates: [{ lang: 'en', path: '/blog/' }, { lang: 'tr', path: '/tr/blog/' }],
+      body: `<main id="main" class="reading-surface"><div class="wrap">
+  <section class="blog-hero"><p class="eyebrow">Yazılar</p><h1>Yapay zekâyı daha iyi kullanmaya doğru.</h1><p>İnsanlar, teknoloji ve daha düşünceli bir gelecek üzerine.</p><p><a class="text-link" href="/blog/" hreflang="en" lang="en">All essays in English <span aria-hidden="true">→</span></a></p></section>
+  <section class="blog-list" aria-label="Tüm yazılar">${trPosts.map(p => postCard(p)).join('\n')}</section>
+</div></main>`,
     }));
+    for (const p of trPosts) writePost(p, enBySlug.get(p.slug), TR_OUTPUT_DIR);
   }
   const indexPath = path.join(ROOT, 'public/index.html');
   let html = readFileSync(indexPath, 'utf8');
@@ -156,6 +198,6 @@ function build() {
   html = replaceRegion(html, 'BLOG_PREVIEW', previewPosts.map(homePostRow).join('\n') || '<p class="blog-empty">No posts yet — check back soon.</p>');
   html = replaceRegion(html, 'FEATURED_POST', featured ? homeFeatured(featured) : '');
   writeFileSync(indexPath, html);
-  console.log(`[blog] built ${posts.length} post(s) and homepage previews`);
+  console.log(`[blog] built ${posts.length} post(s), ${trPosts.length} Turkish post(s) and homepage previews`);
 }
 build();

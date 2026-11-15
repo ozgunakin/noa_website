@@ -288,6 +288,12 @@ nav>a:hover{text-decoration:underline;
   padding-block:55px 85px}
 .post-header{margin-bottom:35px}
 .post-header>.text-link{margin-bottom:35px}
+.post-nav{display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px 24px;
+  margin-bottom:35px}
 .post h1{font-family:var(--font-reading);
   font-weight:400;
   font-size:clamp(2.6rem,4.8vw,4.8rem);
@@ -423,6 +429,7 @@ nav{gap:18px;
 .blog-meta time{display:inline}
 .post{padding-block:35px 55px}
 .post-header>.text-link{margin-bottom:25px}
+.post-nav{margin-bottom:25px}
 .blog-hero{padding-block:40px 30px}
 }
 
