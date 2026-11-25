@@ -105,34 +105,6 @@ Bir öğrencinin yalnızca sınav sonuçlarına bakarak gerçek hayatta nasıl d
 
 Belki yapay zekâ için de benzer bir durumla karşı karşıyayız.
 
-## Sınavı Geçmek Yeterli mi?
-
-Bir AI agent'ının simülasyonda binlerce görevi başarıyla tamamladığını düşünün.
-
-Talimatlara uyuyor.
-
-Yetki sınırlarını aşmıyor.
-
-Riskli işlemlerden kaçınıyor.
-
-Her şey yolunda görünüyor.
-
-Ama gerçek dünya kontrollü bir ortam değil.
-
-Web siteleri değişiyor. İnsanlar beklenmedik davranışlar sergiliyor. Talimatlar çelişebiliyor. Daha önce karşılaşılmamış durumlar ortaya çıkıyor.
-
-Peki agent aynı şekilde davranmaya devam eder mi?
-
-Bunu her zaman bilmiyoruz.
-
-Bu yüzden testleri tamamen bırakmamız gerekmiyor. Tam tersine, onları daha iyi hale getirmemiz gerekiyor.
-
-Daha gerçekçi simülasyonlar, farklı test koşulları, bağımsız değerlendirmeler ve gerçek dünyada devam eden izleme mekanizmaları.
-
-Çünkü iyi bir test yalnızca AI'ın başarılı olup olmadığını göstermemeli.
-
-**Başarısının hangi koşullarda geçerli olduğunu da anlamamıza yardımcı olmalı.**
-
 ## Sınavın Ötesindeki Soru
 
 Yıllardır yapay zekânın ne kadar akıllı olduğunu ölçmeye çalışıyoruz.

@@ -104,34 +104,6 @@ We might not fully understand how a student will act in real life just by lookin
 
 Maybe we are facing something similar with AI.
 
-## Is passing the test enough?
-
-Imagine an AI agent that successfully completes thousands of tasks in a simulation.
-
-It follows instructions.
-
-It stays within its permissions.
-
-It avoids risky actions.
-
-Everything looks fine.
-
-But the real world isn't a controlled environment.
-
-Websites change. People behave unexpectedly. Instructions conflict. Situations come up that no one has seen before.
-
-Will the agent keep behaving the same way?
-
-We don't always know.
-
-That doesn't mean we should give up on testing. Quite the opposite: we need to make testing better.
-
-More realistic simulations, varied test conditions, independent evaluations, and monitoring that continues in the real world.
-
-Because a good test shouldn't only show whether an AI succeeds.
-
-**It should also help us understand the conditions under which that success holds.**
-
 ## The question beyond the exam
 
 For years, we have been trying to measure how intelligent AI is.
